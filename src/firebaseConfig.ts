@@ -6,7 +6,7 @@ import { getFirestore } from "firebase/firestore";
 const key = import.meta.env.VITE_API_KEY;
 
 const firebaseConfig = {
-  apiKey: {key},
+  apiKey: key,
   authDomain: "shellhacks-2025-studyfinder.firebaseapp.com",
   projectId: "shellhacks-2025-studyfinder",
   storageBucket: "shellhacks-2025-studyfinder.appspot.com",

@@ -22,6 +22,7 @@ const Dashboard = ({ user }: Props) => {
     StudySession[]
   >([]);
 
+  console.log(joinedStudySessions);
   const [subjects, setSubjects] = useState<string[]>([]);
 
   useEffect(() => {
@@ -103,7 +104,6 @@ const Dashboard = ({ user }: Props) => {
                 selectedClass={selectedClass}
                 showSessions={showSessions}
                 studySessionList={studySessionList}
-                setJoinedStudySessions={setJoinedStudySessions}
                 user={user}
               />
             )}
