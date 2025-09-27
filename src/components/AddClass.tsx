@@ -31,6 +31,7 @@ const AddClass = ({ user }: Props) => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
+
       <button onClick={handleClick}>Add Class</button>
     </div>
   );
