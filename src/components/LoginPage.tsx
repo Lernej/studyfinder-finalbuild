@@ -1,6 +1,7 @@
 // src/pages/LoginPage.tsx
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import img from "../assets/logo.webp";
 
 interface Props {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
@@ -23,9 +24,15 @@ const LoginPage = ({ setIsLoggedIn, setUser }: Props) => {
   };
 
   return (
-    <div>
-      <h1>Welcome to StudyFinder, please log in</h1>
-      <button onClick={handleLogin}>Sign in with Google</button>
+    <div className="signInPage">
+      <h1>Welcome to StudyFinder! </h1>
+
+      <button className="gsi-material-button" onClick={handleLogin}>
+        <div className="google-button">
+          <img className="logo" src={img}></img>
+          <div>Sign in with Google</div>
+        </div>
+      </button>
     </div>
   );
 };
