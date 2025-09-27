@@ -4,16 +4,9 @@ import StudySessionMaker from "./StudySessionMaker";
 import StudySessions from "./StudySessions";
 import JoinedStudySessions from "./JoinedStudySessions";
 import type { StudySession } from "../interfaces";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-
-const subjects = [
-  "Honors Symposium",
-  "Calc III",
-  "Intro to C",
-  "American History",
-  "Intro to Philosophy",
-];
+import AddClass from "./AddClass";
 
 interface Props {
   user: any;
@@ -28,6 +21,25 @@ const Dashboard = ({ user }: Props) => {
   const [joinedStudySessions, setJoinedStudySessions] = useState<
     StudySession[]
   >([]);
+
+  const [subjects, setSubjects] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    const userDocRef = doc(db, "users", user.uid);
+
+    // Subscribe to live updates
+    const unsubscribe = onSnapshot(userDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setSubjects(data.classes || []); // fallback to empty array
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [user]);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(studySessionsRef, (snapshot) => {
@@ -65,6 +77,9 @@ const Dashboard = ({ user }: Props) => {
       <div className="welcomeContainer">
         <div className="welcomeMessage">Welcome, {user.displayName}</div>
       </div>
+      <div className="welcomeContainer addClassContainer">
+        <AddClass user={user} />
+      </div>
       <div className="welcomeContainer">
         <div className="subjectInputContainer">
           <div>Please select a class you'd like to study for.</div>
@@ -78,7 +93,7 @@ const Dashboard = ({ user }: Props) => {
         </div>
       </div>
       <div className="welcomeContainer">
-        <StudySessionMaker />
+        <StudySessionMaker subjects={subjects} />
       </div>
       <div className="welcomeContainer">
         {showSessions && (
@@ -96,13 +111,7 @@ const Dashboard = ({ user }: Props) => {
         )}
       </div>
       <div className="welcomeContainer">
-        {user && (
-          <JoinedStudySessions
-            joinedStudySessions={joinedStudySessions}
-            setJoinedStudySessions={setJoinedStudySessions}
-            user={user}
-          />
-        )}
+        {user && <JoinedStudySessions user={user} />}
       </div>
     </>
   );

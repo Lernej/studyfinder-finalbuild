@@ -1,8 +1,10 @@
 export interface StudySession {
-  id: number;
+  id: string;
   className: string;
   date: string;
   startTime: string;
   endTime: string;
   examDate: string;
+  location: string;
+  members: string[];
 }

@@ -1,29 +1,25 @@
 import { useState } from "react";
 import type { StudySession } from "../interfaces";
 import { db } from "../firebaseConfig";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 
-const subjects = [
-  "Honors Symposium",
-  "Calc III",
-  "Intro to C",
-  "American History",
-  "Intro to Philosophy",
-];
+interface Props {
+  subjects: string[];
+}
 
-const StudySessionMaker = () => {
+const StudySessionMaker = ({ subjects }: Props) => {
   const [showWindow, setShowWindow] = useState(false);
   const [selectedClass, setSelectedClass] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [examDate, setExamDate] = useState("");
+  const [location, setLocation] = useState(""); // NEW
 
   function handleFirstClick() {
     setShowWindow(!showWindow);
   }
 
-  // Convert 24h time to 12h format with am/pm
   function formatTime(time24: string) {
     if (!time24) return "";
     const [hourStr, minute] = time24.split(":");
@@ -33,7 +29,6 @@ const StudySessionMaker = () => {
     return `${hour}:${minute}${ampm}`;
   }
 
-  // Format date from "YYYY-MM-DD" to "M/D/YY" without timezone issues
   function formatDate(dateStr: string) {
     if (!dateStr) return "";
     const [year, month, day] = dateStr.split("-").map(Number);
@@ -51,11 +46,11 @@ const StudySessionMaker = () => {
       startTime: formatTime(startTime),
       endTime: formatTime(endTime),
       examDate: formatDate(examDate),
+      location, // NEW
       members: [],
     };
 
     try {
-      // Add to Firestore
       await setDoc(newSessionRef, newSession);
 
       // Reset form
@@ -64,18 +59,11 @@ const StudySessionMaker = () => {
       setStartTime("");
       setEndTime("");
       setExamDate("");
+      setLocation(""); // NEW
       setShowWindow(false);
     } catch (error) {
       console.error("Error adding session: ", error);
     }
-
-    // reset form
-    setSelectedClass("");
-    setDate("");
-    setStartTime("");
-    setEndTime("");
-    setExamDate("");
-    setShowWindow(false);
   };
 
   return (
@@ -147,10 +135,26 @@ const StudySessionMaker = () => {
             </label>
           </div>
 
+          <div>
+            <label>
+              Location: {/* NEW */}
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </label>
+          </div>
+
           <button
             onClick={handleCreateSession}
             disabled={
-              !selectedClass || !date || !startTime || !endTime || !examDate
+              !selectedClass ||
+              !date ||
+              !startTime ||
+              !endTime ||
+              !examDate ||
+              !location // UPDATED
             }
           >
             Add Session
