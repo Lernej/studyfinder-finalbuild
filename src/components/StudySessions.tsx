@@ -1,5 +1,11 @@
 import type { StudySession } from "../interfaces";
-import { doc, setDoc, collection } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  arrayUnion,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 interface Props {
@@ -25,17 +31,29 @@ const StudySessions = ({
   );
 
   async function handleJoin(session: StudySession) {
-    const sessionRef = doc(
-      collection(db, "users", user.uid, "joinedSessions"),
+    const globalSessionRef = doc(db, "sessions", session.id);
+    const userSessionRef = doc(
+      db,
+      "users",
+      user.uid,
+      "joinedSessions",
       session.id
     );
 
     try {
-      await setDoc(sessionRef, session);
+      // Now update the members array
+      await updateDoc(globalSessionRef, {
+        members: arrayUnion(user.email),
+      });
+
+      // Add to user's joinedSessions
+      await setDoc(userSessionRef, session);
     } catch (error) {
       console.error("Error joining session: ", error);
     }
   }
+
+  const defaultMessage = "Currently empty";
 
   return (
     <div>
@@ -50,7 +68,12 @@ const StudySessions = ({
                   <span>
                     {studySession.className}, {studySession.date},{" "}
                     {studySession.startTime}-{studySession.endTime}, Exam date
-                    is {studySession.examDate}
+                    is {studySession.examDate}.{" "}
+                    {studySession.members.length > 0 ? (
+                      studySession.members.map((member) => <div>{member}</div>)
+                    ) : (
+                      <div>{defaultMessage}</div>
+                    )}
                   </span>
                   <button
                     style={{ marginLeft: "10px" }}
