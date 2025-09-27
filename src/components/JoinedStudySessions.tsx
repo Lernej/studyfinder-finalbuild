@@ -1,18 +1,28 @@
 import type { StudySession } from "../interfaces";
+import { collection, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 interface Props {
   joinedStudySessions: StudySession[];
   setJoinedStudySessions: (joinedStudySessions: StudySession[]) => void;
+  user: any;
 }
 
 const JoinedStudySessions = ({
   joinedStudySessions,
   setJoinedStudySessions,
+  user,
 }: Props) => {
-  function handleLeave(sessionId: string) {
-    setJoinedStudySessions(
-      joinedStudySessions.filter((session) => session.id !== sessionId)
-    );
+  async function handleLeave(session: StudySession) {
+    try {
+      const sessionRef = doc(
+        collection(db, "users", user.uid, "joinedSessions"),
+        session.id
+      );
+      await deleteDoc(sessionRef);
+    } catch (error) {
+      console.error("Error leaving session: ", error);
+    }
   }
 
   return (
@@ -30,7 +40,7 @@ const JoinedStudySessions = ({
             <li key={session.id}>
               {session.className}, {session.date}, {session.startTime}-
               {session.endTime}, Exam date is {session.examDate}
-              <button onClick={() => handleLeave(session.id)}>Leave</button>
+              <button onClick={() => handleLeave(session)}>Leave</button>
             </li>
           ))}
         </ul>

@@ -41,12 +41,30 @@ const Dashboard = ({ user }: Props) => {
     return () => unsubscribe(); // cleanup subscription on unmount
   }, []);
 
+  useEffect(() => {
+    const joinedSessionsRef = collection(
+      db,
+      "users",
+      user.uid,
+      "joinedSessions"
+    );
+
+    const unsubscribe = onSnapshot(joinedSessionsRef, (snapshot) => {
+      const sessions = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as StudySession[];
+      setJoinedStudySessions(sessions);
+
+      return unsubscribe();
+    });
+  });
+
   return (
     <>
       <div className="welcomeContainer">
         <div className="welcomeMessage">Welcome, {user.displayName}</div>
       </div>
-
       <div className="welcomeContainer">
         <div className="subjectInputContainer">
           <div>Please select a class you'd like to study for.</div>
@@ -65,22 +83,26 @@ const Dashboard = ({ user }: Props) => {
       <div className="welcomeContainer">
         {showSessions && (
           <div className="sessionList">
-            <StudySessions
-              selectedClass={selectedClass}
-              showSessions={showSessions}
-              studySessionList={studySessionList}
-              setJoinedStudySessions={setJoinedStudySessions}
-            />
+            {user && (
+              <StudySessions
+                selectedClass={selectedClass}
+                showSessions={showSessions}
+                studySessionList={studySessionList}
+                setJoinedStudySessions={setJoinedStudySessions}
+                user={user}
+              />
+            )}
           </div>
         )}
       </div>
-
       <div className="welcomeContainer">
-        {" "}
-        <JoinedStudySessions
-          joinedStudySessions={joinedStudySessions}
-          setJoinedStudySessions={setJoinedStudySessions}
-        />
+        {user && (
+          <JoinedStudySessions
+            joinedStudySessions={joinedStudySessions}
+            setJoinedStudySessions={setJoinedStudySessions}
+            user={user}
+          />
+        )}
       </div>
     </>
   );

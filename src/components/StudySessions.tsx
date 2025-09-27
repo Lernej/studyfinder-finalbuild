@@ -1,4 +1,6 @@
 import type { StudySession } from "../interfaces";
+import { doc, setDoc, collection } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 interface Props {
   selectedClass: string;
@@ -9,24 +11,30 @@ interface Props {
       | StudySession[]
       | ((prev: StudySession[]) => StudySession[])
   ) => void;
+  user: any;
 }
 
 const StudySessions = ({
   selectedClass,
   showSessions,
   studySessionList,
-  setJoinedStudySessions,
+  user,
 }: Props) => {
   const filteredList = studySessionList.filter(
     (studySession) => studySession.className === selectedClass
   );
 
-  function handleJoin(studySession: StudySession) {
-    setJoinedStudySessions((prev) => {
-      // prevent duplicate joins
-      if (prev.find((s) => s.id === studySession.id)) return prev;
-      return [...prev, studySession];
-    });
+  async function handleJoin(session: StudySession) {
+    const sessionRef = doc(
+      collection(db, "users", user.uid, "joinedSessions"),
+      session.id
+    );
+
+    try {
+      await setDoc(sessionRef, session);
+    } catch (error) {
+      console.error("Error joining session: ", error);
+    }
   }
 
   return (
