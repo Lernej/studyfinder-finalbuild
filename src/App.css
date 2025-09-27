@@ -51,7 +51,7 @@ select{
 .sessionMaker {
   border: 1px solid #ccc;
   padding: 10px;
-  background: #fff;
+  background: #221976;
   min-width: 300px; /* match desired form width */
   box-sizing: border-box;
 }

@@ -9,7 +9,7 @@ const JoinedStudySessions = ({
   joinedStudySessions,
   setJoinedStudySessions,
 }: Props) => {
-  function handleLeave(sessionId: number) {
+  function handleLeave(sessionId: string) {
     setJoinedStudySessions(
       joinedStudySessions.filter((session) => session.id !== sessionId)
     );

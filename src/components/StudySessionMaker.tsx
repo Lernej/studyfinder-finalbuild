@@ -1,10 +1,7 @@
 import { useState } from "react";
 import type { StudySession } from "../interfaces";
-
-interface Props {
-  studySessionList: StudySession[];
-  setStudySessionList: (studySessionList: StudySession[]) => void;
-}
+import { db } from "../firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 const subjects = [
   "Honors Symposium",
@@ -14,10 +11,7 @@ const subjects = [
   "Intro to Philosophy",
 ];
 
-const StudySessionMaker = ({
-  studySessionList,
-  setStudySessionList,
-}: Props) => {
+const StudySessionMaker = () => {
   const [showWindow, setShowWindow] = useState(false);
   const [selectedClass, setSelectedClass] = useState("");
   const [date, setDate] = useState("");
@@ -47,9 +41,9 @@ const StudySessionMaker = ({
     return `${month}/${day}/${shortYear}`;
   }
 
-  function handleCreateSession() {
+  const handleCreateSession = async () => {
     const newSession: StudySession = {
-      id: Date.now(),
+      id: String(Date.now()),
       className: selectedClass,
       date: formatDate(date),
       startTime: formatTime(startTime),
@@ -57,7 +51,20 @@ const StudySessionMaker = ({
       examDate: formatDate(examDate),
     };
 
-    setStudySessionList([...studySessionList, newSession]);
+    try {
+      // Add to Firestore
+      await addDoc(collection(db, "sessions"), newSession);
+
+      // Reset form
+      setSelectedClass("");
+      setDate("");
+      setStartTime("");
+      setEndTime("");
+      setExamDate("");
+      setShowWindow(false);
+    } catch (error) {
+      console.error("Error adding session: ", error);
+    }
 
     // reset form
     setSelectedClass("");
@@ -66,7 +73,7 @@ const StudySessionMaker = ({
     setEndTime("");
     setExamDate("");
     setShowWindow(false);
-  }
+  };
 
   return (
     <div className="createSessionContainer">
