@@ -68,9 +68,12 @@ const StudySessions = ({
                   <span>
                     {studySession.className}, {studySession.date},{" "}
                     {studySession.startTime}-{studySession.endTime}, Exam date
-                    is {studySession.examDate}.{" "}
+                    is {studySession.examDate}. Location:{" "}
+                    {studySession.location}.<div>Members:</div>
                     {studySession.members.length > 0 ? (
-                      studySession.members.map((member) => <div>{member}</div>)
+                      studySession.members.map((member) => (
+                        <div key={member}>{member}</div>
+                      ))
                     ) : (
                       <div>{defaultMessage}</div>
                     )}

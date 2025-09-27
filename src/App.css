@@ -11,6 +11,7 @@ body button{
   border-width: 1px;
   border-color: rgb(43, 41, 41);
   border-radius: 8px;
+  cursor: pointer;
 
 }
 
@@ -69,6 +70,10 @@ select{
   flex-direction: column;
   align-items: flex-start;
   gap: 10px; /* space between button and form */
+}
+
+.addClassContainer{
+  margin-top: 10px;
 }
 
 
