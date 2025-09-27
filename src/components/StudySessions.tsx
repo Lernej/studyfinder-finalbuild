@@ -1,22 +1,12 @@
 import type { StudySession } from "../interfaces";
-import {
-  doc,
-  setDoc,
-  collection,
-  arrayUnion,
-  updateDoc,
-} from "firebase/firestore";
+import { doc, setDoc, arrayUnion, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 interface Props {
   selectedClass: string;
   showSessions: boolean;
   studySessionList: StudySession[];
-  setJoinedStudySessions: (
-    joinedStudySessions:
-      | StudySession[]
-      | ((prev: StudySession[]) => StudySession[])
-  ) => void;
+
   user: any;
 }
 
