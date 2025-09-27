@@ -26,7 +26,7 @@ const StudySessionMaker = ({
   const [examDate, setExamDate] = useState("");
 
   function handleFirstClick() {
-    setShowWindow(true);
+    setShowWindow(!showWindow);
   }
 
   // Convert 24h time to 12h format with am/pm

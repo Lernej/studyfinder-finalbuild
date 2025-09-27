@@ -4,6 +4,7 @@ import { useState } from "react";
 import StudySessions from "./components/StudySessions";
 import type { StudySession } from "./interfaces";
 import StudySessionMaker from "./components/StudySessionMaker";
+import JoinedStudySessions from "./components/JoinedStudySessions";
 
 const subjects = [
   "Honors Symposium",
@@ -142,6 +143,9 @@ function App() {
   const [studySessionList, setStudySessionList] = useState<StudySession[]>(
     sampleStudySessionsList
   );
+  const [joinedStudySessions, setJoinedStudySessions] = useState<
+    StudySession[]
+  >([]);
 
   return (
     <>
@@ -157,11 +161,17 @@ function App() {
         selectedClass={selectedClass}
         showSessions={showSessions}
         studySessionList={studySessionList}
+        setJoinedStudySessions={setJoinedStudySessions}
       />
 
       <StudySessionMaker
         studySessionList={studySessionList}
         setStudySessionList={setStudySessionList}
+      />
+
+      <JoinedStudySessions
+        joinedStudySessions={joinedStudySessions}
+        setJoinedStudySessions={setJoinedStudySessions}
       />
     </>
   );
