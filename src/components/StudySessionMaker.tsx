@@ -69,17 +69,13 @@ const StudySessionMaker = ({
   }
 
   return (
-    <div>
-      <button onClick={handleFirstClick}>Create a study session</button>
+    <div className="createSessionContainer">
+      <button className="createButton" onClick={handleFirstClick}>
+        Create a study session
+      </button>
 
       {showWindow && (
-        <div
-          style={{
-            marginTop: "1rem",
-            border: "1px solid #ccc",
-            padding: "1rem",
-          }}
-        >
+        <div className="sessionMaker">
           <div>
             <label>
               Class:

@@ -17,7 +17,11 @@ const JoinedStudySessions = ({
 
   return (
     <div>
-      <div>Your Joined Study Sessions</div>
+      <div className="welcomeContainer">
+        {" "}
+        <div>Your Joined Study Sessions</div>
+      </div>
+
       {joinedStudySessions.length === 0 ? (
         <div>You haven't joined any sessions yet.</div>
       ) : (

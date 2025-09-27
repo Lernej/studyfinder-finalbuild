@@ -149,30 +149,48 @@ function App() {
 
   return (
     <>
-      <div>Welcome Noah!</div>
-      <div>Please select a class you'd like to study for.</div>
-      <ClassInput
-        subjects={subjects}
-        setSelectedClass={setSelectedClass}
-        setShowSessions={setShowSessions}
-      />
+      <div className="welcomeContainer">
+        <div className="welcomeMessage">Welcome, Noah!</div>
+      </div>
 
-      <StudySessions
-        selectedClass={selectedClass}
-        showSessions={showSessions}
-        studySessionList={studySessionList}
-        setJoinedStudySessions={setJoinedStudySessions}
-      />
+      <div className="welcomeContainer">
+        <div className="subjectInputContainer">
+          <div>Please select a class you'd like to study for.</div>
+          <div className="welcomeContainer">
+            <ClassInput
+              subjects={subjects}
+              setSelectedClass={setSelectedClass}
+              setShowSessions={setShowSessions}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="welcomeContainer">
+        <StudySessionMaker
+          studySessionList={studySessionList}
+          setStudySessionList={setStudySessionList}
+        />
+      </div>
+      <div className="welcomeContainer">
+        {showSessions && (
+          <div className="sessionList">
+            <StudySessions
+              selectedClass={selectedClass}
+              showSessions={showSessions}
+              studySessionList={studySessionList}
+              setJoinedStudySessions={setJoinedStudySessions}
+            />
+          </div>
+        )}
+      </div>
 
-      <StudySessionMaker
-        studySessionList={studySessionList}
-        setStudySessionList={setStudySessionList}
-      />
-
-      <JoinedStudySessions
-        joinedStudySessions={joinedStudySessions}
-        setJoinedStudySessions={setJoinedStudySessions}
-      />
+      <div className="welcomeContainer">
+        {" "}
+        <JoinedStudySessions
+          joinedStudySessions={joinedStudySessions}
+          setJoinedStudySessions={setJoinedStudySessions}
+        />
+      </div>
     </>
   );
 }
