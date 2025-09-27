@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { StudySession } from "../interfaces";
 import { db } from "../firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 
 const subjects = [
   "Honors Symposium",
@@ -42,18 +42,21 @@ const StudySessionMaker = () => {
   }
 
   const handleCreateSession = async () => {
+    const newSessionRef = doc(collection(db, "sessions"));
+
     const newSession: StudySession = {
-      id: String(Date.now()),
+      id: newSessionRef.id,
       className: selectedClass,
       date: formatDate(date),
       startTime: formatTime(startTime),
       endTime: formatTime(endTime),
       examDate: formatDate(examDate),
+      members: [],
     };
 
     try {
       // Add to Firestore
-      await addDoc(collection(db, "sessions"), newSession);
+      await setDoc(newSessionRef, newSession);
 
       // Reset form
       setSelectedClass("");

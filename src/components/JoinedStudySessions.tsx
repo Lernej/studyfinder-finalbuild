@@ -1,5 +1,11 @@
 import type { StudySession } from "../interfaces";
-import { collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  arrayRemove,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 interface Props {
@@ -19,7 +25,12 @@ const JoinedStudySessions = ({
         collection(db, "users", user.uid, "joinedSessions"),
         session.id
       );
+      const globalSessionRef = doc(db, "sessions", session.id);
+
       await deleteDoc(sessionRef);
+      await updateDoc(globalSessionRef, {
+        members: arrayRemove(user.email),
+      });
     } catch (error) {
       console.error("Error leaving session: ", error);
     }
