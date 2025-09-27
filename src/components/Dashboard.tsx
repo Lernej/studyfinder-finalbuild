@@ -136,7 +136,11 @@ const subjects = [
   "Intro to Philosophy",
 ];
 
-const Dashboard = () => {
+interface Props {
+  user: any;
+}
+
+const Dashboard = ({ user }: Props) => {
   const [selectedClass, setSelectedClass] = useState<string>("");
   const [showSessions, setShowSessions] = useState(false);
   const [studySessionList, setStudySessionList] = useState<StudySession[]>(
@@ -149,7 +153,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="welcomeContainer">
-        <div className="welcomeMessage">Welcome, Noah!</div>
+        <div className="welcomeMessage">Welcome, {user.displayName}</div>
       </div>
 
       <div className="welcomeContainer">

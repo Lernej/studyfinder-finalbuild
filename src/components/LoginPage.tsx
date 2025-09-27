@@ -4,9 +4,10 @@ import { auth } from "../firebaseConfig";
 
 interface Props {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setUser: (user: any) => void;
 }
 
-const LoginPage = ({ setIsLoggedIn }: Props) => {
+const LoginPage = ({ setIsLoggedIn, setUser }: Props) => {
   const provider = new GoogleAuthProvider();
 
   const handleLogin = async () => {
@@ -15,6 +16,7 @@ const LoginPage = ({ setIsLoggedIn }: Props) => {
       console.log("User:", result.user); // user info here
       // later: redirect to dashboard after successful login
       setIsLoggedIn(true);
+      setUser(result.user);
     } catch (error) {
       console.error("Login failed:", error);
     }
