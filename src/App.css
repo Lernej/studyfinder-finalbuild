@@ -1,8 +1,12 @@
 body{
+  
   background-color: rgb(48, 129, 187);
   color: rgb(255, 255, 255);
-  font-family: Roboto, Arial
+  font-family: Roboto, Arial;
+  background-image: link("../assets/background.png");
 }
+
+
 
 body button{
   background-color: rgba(1, 64, 140, 0.935);
@@ -13,6 +17,10 @@ body button{
   border-radius: 8px;
   cursor: pointer;
 
+}
+
+body button:active{
+  background-color:rgb(24, 33, 128)
 }
 
 select{
@@ -37,7 +45,8 @@ select{
 .subjectInputContainer{
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .sessionList{
@@ -70,6 +79,10 @@ select{
   flex-direction: column;
   align-items: flex-start;
   gap: 10px; /* space between button and form */
+  position: fixed;
+  top: 300px;
+  margin-left: -70px
+  
 }
 
 .addClassContainer{
@@ -275,7 +288,7 @@ select{
 
 .createButtonContainer{
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
 
 .flexContainer{
@@ -283,5 +296,100 @@ select{
   flex-direction: column;
   position: relative;
 }
+
+.innerCreateSession{
+  position: relative;
+}
+
+.closeButton{
+  position: absolute;
+  right: -10px;
+  top: -10px;
+}
+
+.joinedSessions{
+  margin-top: 20px;
+  
+}
+
+.createButtonContainer{
+  margin-bottom: 20px
+}
+
+.header{
+  position: fixed;
+  background-color: rgb(9, 15, 78);
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10000;
+  height: 60px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+
+}
+
+.welcomeMessage{
+  color: white;
+  font-family: "Cedarville Cursive";
+  
+}
+
+.innerHeader{
+  position: relative;
+  width: 100%
+}
+
+.welcomeMessage{
+  position: absolute;
+  left: 10px;
+  top: -25px
+}
+
+.flexEnter{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.dashboard{
+  padding-top: 100px;
+}
+
+.sidebar{
+  padding-top: 20px;
+  background-color:rgb(9, 15, 78);
+  position: fixed;
+  width: 70px;
+  left: 0;
+  top: 60px;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  gap: 20px
+}
+
+.sidebar div{
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 3px;
+   -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.completeList{
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color:rgb(9, 15, 78);
+  padding: 10px;
+  border-radius: 5px;
+  
+}
+
 
 

@@ -7,11 +7,11 @@ const key = import.meta.env.VITE_API_KEY;
 
 const firebaseConfig = {
   apiKey: key,
-  authDomain: "shellhacks-2025-studyfinder.firebaseapp.com",
-  projectId: "shellhacks-2025-studyfinder",
-  storageBucket: "shellhacks-2025-studyfinder.appspot.com",
-  messagingSenderId: "521476233651",
-  appId: "1:521476233651:web:c4c7ecf5659e5508ef13c6",
+  authDomain: "studyfinder-final.firebaseapp.com",
+  projectId: "studyfinder-final",
+  storageBucket: "studyfinder-final.appspot.com",
+  messagingSenderId: "781142311405",
+  appId: "1:781142311405:web:d09f0c0a92ac7517fc67e4",
 };
 
 const app = initializeApp(firebaseConfig);

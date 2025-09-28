@@ -7,6 +7,7 @@ import type { StudySession } from "../interfaces";
 import { collection, onSnapshot, doc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import AddClass from "./AddClass";
+import Sidebar from "./Sidebar";
 
 interface Props {
   user: any;
@@ -74,9 +75,11 @@ const Dashboard = ({ user }: Props) => {
   });
 
   return (
-    <>
-      <div className="welcomeContainer">
-        <div className="welcomeMessage">Welcome, {user.displayName}</div>
+    <div className="dashboard">
+      <div className="welcomeContainer header">
+        <div className="innerHeader">
+          <div className="welcomeMessage">Welcome, {user.displayName}! 🎓</div>
+        </div>
       </div>
       <div className="welcomeContainer addClassContainer">
         <AddClass user={user} />
@@ -113,7 +116,8 @@ const Dashboard = ({ user }: Props) => {
       <div className="welcomeContainer">
         {user && <JoinedStudySessions user={user} />}
       </div>
-    </>
+      <Sidebar studySessionList={studySessionList} />
+    </div>
   );
 };
 
