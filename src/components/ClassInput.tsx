@@ -15,7 +15,7 @@ const ClassInput = ({ subjects, setSelectedClass, setShowSessions }: Props) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   return (
-    <div>
+    <div className="subjectInput">
       <select
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}

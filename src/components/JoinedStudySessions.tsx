@@ -52,11 +52,13 @@ const JoinedStudySessions = ({ user }: Props) => {
   return (
     <div>
       <div className="welcomeContainer">
-        <div>Your Joined Study Sessions</div>
+        <div>Your Joined Study Sessions:</div>
       </div>
 
       {joinedSessions.length === 0 ? (
-        <div>You haven't joined any sessions yet.</div>
+        <div className="joinedSessions">
+          You haven't joined any sessions yet. Try joining one!
+        </div>
       ) : (
         <ul>
           {joinedSessions.map((session) => (
