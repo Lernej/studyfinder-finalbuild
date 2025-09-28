@@ -67,16 +67,19 @@ const StudySessionMaker = ({ subjects }: Props) => {
   };
 
   return (
-    <div className="createSessionContainer">
-      <button className="createButton" onClick={handleFirstClick}>
-        Create a study session
-      </button>
+    <div>
+      <div className="createButtonContainer">
+        <button className="createButton" onClick={handleFirstClick}>
+          Create a study session
+        </button>
+      </div>
 
-      {showWindow && (
-        <div className="sessionMaker">
-          <div>
-            <label>
-              Class:
+      <div className="createSessionContainer">
+        {showWindow && (
+          <div className="sessionMaker">
+            <div className="inputGrid">
+              <div>Class:</div>
+
               <select
                 value={selectedClass}
                 onChange={(e) => setSelectedClass(e.target.value)}
@@ -88,79 +91,61 @@ const StudySessionMaker = ({ subjects }: Props) => {
                   </option>
                 ))}
               </select>
-            </label>
-          </div>
 
-          <div>
-            <label>
-              Date:
+              <div>Date:</div>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
-            </label>
-          </div>
 
-          <div>
-            <label>
-              Start Time:
+              <div>Start Time:</div>
               <input
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
               />
-            </label>
-          </div>
 
-          <div>
-            <label>
-              End Time:
+              <div>End Time:</div>
               <input
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
               />
-            </label>
-          </div>
 
-          <div>
-            <label>
-              Exam Date:
+              <div>Exam Date:</div>
               <input
                 type="date"
                 value={examDate}
                 onChange={(e) => setExamDate(e.target.value)}
               />
-            </label>
-          </div>
 
-          <div>
-            <label>
-              Location: {/* NEW */}
+              <div>Location:</div>
               <input
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
-            </label>
-          </div>
+            </div>
 
-          <button
-            onClick={handleCreateSession}
-            disabled={
-              !selectedClass ||
-              !date ||
-              !startTime ||
-              !endTime ||
-              !examDate ||
-              !location // UPDATED
-            }
-          >
-            Add Session
-          </button>
-        </div>
-      )}
+            <div className="welcomeContainer">
+              <button
+                onClick={handleCreateSession}
+                disabled={
+                  !selectedClass ||
+                  !date ||
+                  !startTime ||
+                  !endTime ||
+                  !examDate ||
+                  !location // UPDATED
+                }
+              >
+                Add Session
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

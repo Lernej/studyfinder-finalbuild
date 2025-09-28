@@ -2,6 +2,8 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import img from "../assets/logo.webp";
+import pencil from "../assets/pencil.png";
+import books from "../assets/books.webp";
 
 interface Props {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
@@ -24,16 +26,27 @@ const LoginPage = ({ setIsLoggedIn, setUser }: Props) => {
   };
 
   return (
-    <div className="signInPage">
-      <h1>Welcome to StudyFinder! </h1>
+    <>
+      <img className="icon pencil" src={pencil}></img>
+      <img className="icon books" src={books}></img>
 
-      <button className="gsi-material-button" onClick={handleLogin}>
-        <div className="google-button">
-          <img className="logo" src={img}></img>
-          <div>Sign in with Google</div>
+      <div className="decorative-block"></div>
+      <div className="decorative-block"></div>
+
+      <div className="signInPage">
+        <div>
+          <p className="text">Study groups made simple.</p>
         </div>
-      </button>
-    </div>
+        <h1>Welcome to StudyFinder! </h1>
+
+        <button className="gsi-material-button" onClick={handleLogin}>
+          <div className="google-button">
+            <img className="logo" src={img}></img>
+            <div>Sign in with Google</div>
+          </div>
+        </button>
+      </div>
+    </>
   );
 };
 
