@@ -25,14 +25,19 @@ const AddClass = ({ user }: Props) => {
   };
 
   return (
-    <div>
-      <input
-        placeholder="Class"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
+    <div className="flexEnter">
+      <div className="welcomeContainer">
+        Enter a class to add to your subject list
+      </div>
+      <div>
+        <input
+          placeholder="Class"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
 
-      <button onClick={handleClick}>Add Class</button>
+        <button onClick={handleClick}>Add Class</button>
+      </div>
     </div>
   );
 };
