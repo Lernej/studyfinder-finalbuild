@@ -31,7 +31,6 @@ const LoginPage = ({ setIsLoggedIn, setUser }: Props) => {
       <img className="icon books" src={books}></img>
 
       <div className="decorative-block"></div>
-      <div className="decorative-block"></div>
 
       <div className="signInPage">
         <div>
